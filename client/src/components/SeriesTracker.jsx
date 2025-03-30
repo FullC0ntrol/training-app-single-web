@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { saveExerciseData, loadExerciseData } from "../../../../trening-app/src/utils/trainingStorage";
-
+import { motion } from "framer-motion";
 
 const SeriesTracker = () => {
     const { id } = useParams();
@@ -11,38 +10,51 @@ const SeriesTracker = () => {
         reps: "",
     });
 
+    // Ładowanie danych z localStorage
     useEffect(() => {
-        const savedData = loadExerciseData(id);
-        setSets(savedData);
-    },[id])
+        const savedData = localStorage.getItem(`exercise_${id}_sets`);
+        if (savedData) {
+            setSets(JSON.parse(savedData));
+        }
+    }, [id]);
+
+    // Zapisywanie danych do localStorage
     useEffect(() => {
-        saveExerciseData(id, sets);
-    }, [sets, id])
+        localStorage.setItem(`exercise_${id}_sets`, JSON.stringify(sets));
+    }, [sets, id]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formData.weight || !formData.reps) return;
-        const newSet = { ...formData, id: Date.now() };
-        const updatedSets = [...sets, newSet];
-        setSets(updatedSets);
+        
+        const newSet = { 
+            ...formData, 
+            id: Date.now(),
+            weight: parseFloat(formData.weight),
+            reps: parseInt(formData.reps)
+        };
+        
+        setSets([...sets, newSet]);
         setFormData({ weight: "", reps: "" });
     };
 
     const handleDelete = (idToDelete) => {
-        const updatedSets = sets.filter(set => set.id !== idToDelete);
-        setSets(updatedSets);
+        setSets(sets.filter(set => set.id !== idToDelete));
     };
 
     const calculateTotalVolume = () => {
         return sets.reduce((total, set) => {
-            return (
-                total +
-                (parseFloat(set.weight) || 0) * (parseInt(set.reps) || 0)
-            );
+            return total + (set.weight || 0) * (set.reps || 0);
         }, 0);
     };
 
     return (
-        <div className="max-w-full mb-9 mx-auto bg-gray-800 rounded-xl shadow-lg overflow-visible p-6">
+        <motion.div 
+            className="max-w-full mb-9 mx-auto bg-gray-800 rounded-xl shadow-lg overflow-visible p-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+        >
             <h2 className="text-3xl font-bold text-amber-400 mb-6">
                 Śledzenie serii
             </h2>
@@ -64,28 +76,38 @@ const SeriesTracker = () => {
 
             <ul className="space-y-3 mb-6 max-h-64 overflow-y-auto pr-2">
                 {sets.length === 0 ? (
-                    <li className="text-gray-400 text-center py-4">
+                    <motion.li 
+                        className="text-gray-400 text-center py-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                    >
                         Brak dodanych serii
-                    </li>
+                    </motion.li>
                 ) : (
-                    sets.map((set) => (
-                        <li key={set.id} className="bg-gray-700 p-4 rounded-lg">
+                    sets.map((set, index) => (
+                        <motion.li 
+                            key={set.id} 
+                            className="bg-gray-700 p-4 rounded-lg"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                        >
                             <div className="flex justify-between items-start">
                                 <div>
                                     <p className="text-white font-medium">
                                         {set.weight}kg × {set.reps} powtórzeń
                                     </p>
                                 </div>
-                                <div className="flex space-x-2">
-                                    <button
-                                        onClick={() => handleDelete(set.id)}
-                                        className="text-red-400 hover:text-red-300 text-sm"
-                                    >
-                                        Usuń
-                                    </button>
-                                </div>
+                                <motion.button
+                                    onClick={() => handleDelete(set.id)}
+                                    className="text-red-400 hover:text-red-300 text-sm"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                >
+                                    Usuń
+                                </motion.button>
                             </div>
-                        </li>
+                        </motion.li>
                     ))
                 )}
             </ul>
@@ -131,14 +153,16 @@ const SeriesTracker = () => {
                     </div>
                 </div>
 
-                <button
+                <motion.button
                     type="submit"
                     className="w-full py-2 px-4 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors duration-200"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                 >
                     Dodaj serię
-                </button>
+                </motion.button>
             </form>
-        </div>
+        </motion.div>
     );
 };
 
