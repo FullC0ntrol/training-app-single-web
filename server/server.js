@@ -66,7 +66,7 @@ app.post("/api/auth", (req, res) => {
 })
 app.post("/api/workout", (req, res) => {
     const { user_id, exercise_id, repetitions, weight } = req.body;
-
+    console.log({ user_id, exercise_id, repetitions, weight });
     // Walidacja danych
     if (!user_id || !exercise_id || !repetitions) {
         return res.status(400).json({ error: "Brak wymaganych danych (user_id, exercise_id, repetitions)" });

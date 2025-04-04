@@ -10,11 +10,14 @@ const SeriesTracker = () => {
         reps: "",
     });
 
-    // Ładowanie danych z localStorage
+    // Ładowanie danych z localStorage i resetowanie przy zmianie ćwiczenia
     useEffect(() => {
         const savedData = localStorage.getItem(`exercise_${id}_sets`);
         if (savedData) {
             setSets(JSON.parse(savedData));
+        } else {
+            // Resetuj sets, jeśli nie ma danych dla nowego ćwiczenia
+            setSets([]);
         }
     }, [id]);
 
@@ -26,20 +29,20 @@ const SeriesTracker = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formData.weight || !formData.reps) return;
-        
-        const newSet = { 
-            ...formData, 
+
+        const newSet = {
+            ...formData,
             id: Date.now(),
             weight: parseFloat(formData.weight),
-            reps: parseInt(formData.reps)
+            reps: parseInt(formData.reps),
         };
-        
+
         setSets([...sets, newSet]);
         setFormData({ weight: "", reps: "" });
     };
 
     const handleDelete = (idToDelete) => {
-        setSets(sets.filter(set => set.id !== idToDelete));
+        setSets(sets.filter((set) => set.id !== idToDelete));
     };
 
     const calculateTotalVolume = () => {
@@ -48,35 +51,40 @@ const SeriesTracker = () => {
         }, 0);
     };
 
+    // Warianty animacji
+    const containerVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, x: -20 },
+        visible: { opacity: 1, x: 0 },
+    };
+
     return (
-        <motion.div 
+        <motion.div
             className="max-w-full mb-9 mx-auto bg-gray-800 rounded-xl shadow-lg overflow-visible p-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
         >
-            <h2 className="text-3xl font-bold text-amber-400 mb-6">
-                Śledzenie serii
-            </h2>
+            <h2 className="text-3xl font-bold text-amber-400 mb-6">Śledzenie serii</h2>
 
             <div className="bg-gray-700 p-4 rounded-lg mb-6 grid grid-cols-2 gap-4">
                 <div>
                     <p className="text-gray-400 text-sm">Liczba serii</p>
-                    <p className="text-white text-xl font-bold">
-                        {sets.length}
-                    </p>
+                    <p className="text-white text-xl font-bold">{sets.length}</p>
                 </div>
                 <div>
-                    <p className="text-gray-400 text-sm">Całkowity tonarz</p>
-                    <p className="text-white text-xl font-bold">
-                        {calculateTotalVolume()} kg
-                    </p>
+                    <p className="text-gray-400 text-sm">Całkowity tonaż</p>
+                    <p className="text-white text-xl font-bold">{calculateTotalVolume()} kg</p>
                 </div>
             </div>
 
             <ul className="space-y-3 mb-6 max-h-64 overflow-y-auto pr-2">
                 {sets.length === 0 ? (
-                    <motion.li 
+                    <motion.li
                         className="text-gray-400 text-center py-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -85,11 +93,12 @@ const SeriesTracker = () => {
                     </motion.li>
                 ) : (
                     sets.map((set, index) => (
-                        <motion.li 
-                            key={set.id} 
+                        <motion.li
+                            key={set.id}
                             className="bg-gray-700 p-4 rounded-lg"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
                             transition={{ delay: index * 0.1 }}
                         >
                             <div className="flex justify-between items-start">
@@ -123,9 +132,7 @@ const SeriesTracker = () => {
                             name="weight"
                             id="weight"
                             value={formData.weight}
-                            onChange={(e) =>
-                                setFormData({ ...formData, weight: e.target.value })
-                            }
+                            onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
                             className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
                             placeholder="np. 60"
                             min="0"
@@ -142,9 +149,7 @@ const SeriesTracker = () => {
                             name="reps"
                             id="reps"
                             value={formData.reps}
-                            onChange={(e) =>
-                                setFormData({ ...formData, reps: e.target.value })
-                            }
+                            onChange={(e) => setFormData({ ...formData, reps: e.target.value })}
                             className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
                             placeholder="np. 8"
                             min="1"

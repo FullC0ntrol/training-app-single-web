@@ -424,27 +424,105 @@ export const exercises = [
         },
     },
     {
-        id: 13,
-        name: "Military Press",
-        video: "military_press.mp4",
+        id: 13, // Ustawiłem ID zgodnie z Twoim planem (Barki), dostosuj jeśli potrzeba innego
+        name: "Military press, wyciskanie żołnierskie",
+        video: "k_military_press_wyciskanie_zolnierskie.mp4",
         sections: {
-            /* ... */
-        },
+            start: {
+                title: "Pozycja wyjściowa",
+                content: [
+                    "Wykonaj zarzut (patrz: kettlebell clean), aby dojść do pozycji stojącej z dwoma kettlebells opartymi na przedramionach i po części na bicepsach.",
+                    "Łokcie bardzo blisko tułowia. Obie dłonie odwrócone do środka.",
+                    "Stopy w lekkim rozkroku, plecy proste, napięty brzuch stabilizujący tułów."
+                ]
+            },
+            movement: {
+                title: "Ruch",
+                content: [
+                    "Utrzymując prawidłową pozycję wyjściową, unieś równocześnie oba kettlebells nad głowę, prostując ramiona w łokciach po lekkim łuku na zewnątrz.",
+                    "Odwróć nadgarstki tak, aby palce były skierowane do przodu i wykonaj wydech.",
+                    "Bardzo ważne w tym momencie ruchu jest utrzymanie prostych pleców. Za zachowanie prawidłowej pozycji odpowiedzialne są mięśnie pośladkowe i mięśnie brzucha.",
+                    "Opuść oba kettlebells do pozycji wyjściowej, wykonując wdech.",
+                    "Wykonaj wyznaczoną liczbę powtórzeń."
+                ]
+            },
+            tips: {
+                title: "Wskazówki",
+                content: [
+                    "Stopy mocno wciśnij w podłogę.",
+                    "Trzymaj głowę w równej linii z plecami, nie pochylaj jej do przodu. Wzrok skierowany do przodu.",
+                    "Bądź skoncentrowana.",
+                    "Pamiętaj o prawidłowym oddychaniu.",
+                    "Zwróć uwagę na zachowanie prawidłowej krzywizny kręgosłupa – zwłaszcza podczas ruchu wyciskania nad głowę.",
+                    "Wykonuj mocne spięcia brzucha i mięśni pośladkowych w celu usztywnienia sylwetki.",
+                    "Nie wykonuj wybicia kettlebells z nóg (push press). Ćwiczenie to jest typowo siłowe."
+                ]
+            }
+        }
     },
     {
-        id: 14,
-        name: "Wiosłowanie",
-        video: "wioslowanie.mp4",
+        id: 14, // Ustawiłem ID zgodnie z Twoim planem (Plecy), dostosuj jeśli potrzeba innego
+        name: "Wiosłowanie sztangą",
+        video: "wioslowanie_sztanaga_trzymana_nachwytem_do_klatki_w_opadzie_tulowia.mp4",
         sections: {
-            /* ... */
-        },
+            start: {
+                title: "Pozycja wyjściowa",
+                content: [
+                    "Trzymając sztangę nachwytem (palce skierowane w dół), nieco szerzej niż na szerokość barków, ugnij lekko nogi w kolanach i wykonaj opad tułowia w przód.",
+                    "Ramiona wyprostowane, ustawione prostopadle do podłoża."
+                ]
+            },
+            movement: {
+                title: "Ruch",
+                content: [
+                    "Utrzymując prawidłową pozycję ciała, wykonaj wdech, a następnie przyciągnij sztangę pionowo w górę, kieruj ją w stronę mostka, jednocześnie maksymalnie zbliżając łopatki do kręgosłupa.",
+                    "Zatrzymaj ruch na ułamek sekundy w momencie, kiedy sztanga znajduje się blisko tułowia.",
+                    "Wykonując wydech powietrza, powoli obniż sztangę do pozycji wyjściowej.",
+                    "Wykonaj wyznaczoną liczbę powtórzeń."
+                ]
+            },
+            tips: {
+                title: "Wskazówki",
+                content: [
+                    "Postaraj się zachować proste plecy podczas wykonywania ćwiczenia.",
+                    "Ćwiczenie wykonuj powoli, z pełnym wyczuciem zaangażowanej grupy mięśniowej.",
+                    "W czasie wykonywania tego ćwiczenia nie możesz doprowadzać do tworzenia się tzw. kociego grzbietu, czyli wygięcia pleców w łuk.",
+                    "Skup się podczas wykonywania ruchu.",
+                    "Zwróć uwagę na prawidłowe oddychanie.",
+                    "Postaraj się wykonywać ruch poprzez mocną pracę łopatek."
+                ]
+            }
+        }
     },
+    
     {
-        id: 15,
-        name: "Wznosy pod brodę",
-        video: "wznosy_pod_brode.mp4",
+        id: 15, // Ustawiłem ID zgodnie z Twoim planem (Barki), dostosuj jeśli potrzeba innego
+        name: "Podciąganie sztangi pod brodę",
+        video: "podciaganie_sztangi_pod_brode.mp4",
         sections: {
-            /* ... */
-        },
+            start: {
+                title: "Pozycja wyjściowa",
+                content: [
+                    "Stań wyprostowany, złap sztangę obiema rękami, trochę szerzej niż na szerokość barków.",
+                    "Stopy w lekkim rozkroku, plecy proste, brzuch i pośladki napięte."
+                ]
+            },
+            movement: {
+                title: "Ruch",
+                content: [
+                    "Utrzymując prawidłową pozycję wyjściową, wykonaj wdech i podciągaj sztangę wzdłuż tułowia możliwie jak najwyżej, prowadź łokcie w bok i do góry. Pamiętaj, aby znajdowały się zawsze wyżej niż nadgarstki.",
+                    "Następnie opuszczaj sztangę, wykonując wydech.",
+                    "Wykonaj wyznaczoną liczbę powtórzeń."
+                ]
+            },
+            tips: {
+                title: "Wskazówki",
+                content: [
+                    "Utrzymuj stałe napięcie mięśniowe.",
+                    "Trzymaj głowę w równej linii z plecami.",
+                    "Bądź skoncentrowany."
+                ]
+            }
+        }
     },
 ];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 // eslint-disable-next-line no-unused-vars
@@ -8,6 +8,14 @@ const LoginPageName = () => {
     const [name, setName] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const inputFocusDelay = useRef(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            inputFocusDelay.current.focus();
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []); 
 
     const handleSubmit = () => {
         if (name.trim()) {
@@ -70,7 +78,7 @@ const LoginPageName = () => {
                     variants={titleVariants}
                 >
                     Training <span className="text-orange-400">OD</span>
-                    <span className="text-sky-600">I</span>
+                    <span className="text-green-600">I</span>
                     <span className="text-orange-400">DO</span> APP
                 </motion.h1>
 
@@ -86,6 +94,7 @@ const LoginPageName = () => {
                         placeholder=" "
                         autoComplete="off"
                         required
+                        ref={inputFocusDelay}
                         onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
                         variants={inputVariants}
                     />

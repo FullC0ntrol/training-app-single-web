@@ -11,7 +11,7 @@ const Home = () => {
     const username = location.state || "Sportowiec";
     const navigate = useNavigate();
     let today = new Date().getDay();
-    today = 1; // Tymczasowo na środę
+    today = 2; // Tymczasowo na środę
     const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
     const todayName = days[today];
     const todayTraining = trainingPlan[today];
@@ -65,7 +65,7 @@ const Home = () => {
                         {/* Przyciski nawigacyjne */}
                         <div className="flex gap-4 w-full justify-center">
                             <motion.button
-                                onClick={() => navigate("/training-plans")}
+                                onClick={() => navigate("/plany")}
                                 className="cursor-pointer flex items-center justify-center gap-2 bg-sky-800/50 hover:bg-sky-700 text-sky-300 px-4 py-2 rounded-lg flex-1 max-w-[160px] transition-colors"
                                 whileHover={{ y: -2 }}
                                 whileTap={{ scale: 0.98 }}

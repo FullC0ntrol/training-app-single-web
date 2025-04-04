@@ -6,6 +6,7 @@ import Warmup from "./components/Warmup";
 import ExercisePage from "./pages/ExercisePage";
 import SummaryPage from "./pages/SummaryPage";
 import Calendar from "./components/Calendar";
+import Plany from "./components/Plany";
 function App() {
     return (
         <Router>
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/exercise/:id" element={<ExercisePage />} />
                 <Route path="/summary" element={<SummaryPage />} />
                 <Route path="/calendar" element={<Calendar />} />
+                <Route path="/plany" element={<Plany />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </Router>

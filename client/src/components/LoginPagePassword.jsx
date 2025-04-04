@@ -10,8 +10,12 @@ const LoginPageNumber = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const username = location.state || "Gość"; // Domyślna wartość, jeśli state jest undefined
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError(null);
+        setIsLoading(true);
         const password = number;
         try {
             const response = await fetch("http://localhost:5000/api/auth", {
@@ -19,15 +23,31 @@ const LoginPageNumber = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
             });
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem("user", JSON.stringify(data));
-                navigate("/home", { state: username });
-            } else {
-                setError(data.error);
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                setError(result.error);
+                setIsLoading(false);
+                return;
             }
+
+            // Zapisz dane użytkownika w localStorage
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    id: result.id,
+                    username: result.username,
+                })
+            );
+
+            console.log("Zalogowano użytkownika:", result);
+            setIsLoading(false);
+            navigate("/home");
         } catch (err) {
-            setError("Coś poszło nie tak", err);
+            setError("Błąd sieci. Spróbuj ponownie.");
+            console.error("Błąd logowania:", err);
+            setIsLoading(false);
         }
     };
 
